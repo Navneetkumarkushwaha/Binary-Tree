@@ -1,0 +1,42 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    
+    def solve(self,root,col,row):
+        if not root:
+            return
+        if col in self.dic:
+            if row in self.dic[col]:
+                self.dic[col][row].append(root.val)
+            else:
+                self.dic[col][row] = [root.val]
+        else:
+            self.dic[col][row] = []
+            self.dic[col][row].append(root.val)
+            
+        self.solve(root.left,col-1,row+1)
+        self.solve(root.right,col+1,row+1)
+    
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        
+        self.dic = collections.defaultdict(dict)
+        self.solve(root,0,0)
+        ans = []
+        for key in sorted(self.dic):
+            t = []
+            for key_in in sorted(self.dic[key]):
+                temp = []
+                for ele in sorted(self.dic[key][key_in]):
+                    temp.append(ele)
+                t = t + temp
+            ans.append(t)
+        return ans
+            
+            
+  Time Complexity: O(N*logN*logN*logN)
+
+Space Complexity: O(N)
