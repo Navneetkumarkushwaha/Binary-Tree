@@ -1,0 +1,35 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        
+        ans = 0
+        queue = [(root,0)]
+        
+        while queue:
+            
+            n = len(queue)
+            temp = []           # for Storing maximum and minimum index
+            
+            for _ in range(n):
+                node,index = queue.pop(0)
+                temp.append(index)
+                if node.left:
+                    queue.append((node.left,index*2+1))
+                if node.right:
+                    queue.append((node.right,index*2+2))
+            
+            ans = max(ans,max(temp)-min(temp)+1)
+            
+        return ans
+        
+        
+ Time Complexity: O(N)
+
+Reason: We are doing a simple level order traversal. The inner loop simply traverses the nodes level-wise and doesn’t add to the complexity.
+
+Space Complexity: O(N)
