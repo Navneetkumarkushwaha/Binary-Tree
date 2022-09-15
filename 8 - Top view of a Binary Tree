@@ -1,0 +1,59 @@
+DFS   PROCESS
+
+import collections
+class Solution:
+    
+    #Function to return a list of nodes visible from the top view 
+    #from left to right in Binary Tree.
+    def solve(self,root,col,row):
+        if not root:
+            return
+        
+        if col in self.dic:
+            if self.dic[col][1]>row:
+                self.dic[col] = [root.data,row]
+                
+        else:
+            self.dic[col]=[root.data,row] 
+        
+        self.solve(root.left,col-1,row+1)
+        self.solve(root.right,col+1,row+1)
+        
+    def topView(self,root):
+        
+        self.dic = collections.defaultdict(list)
+        self.solve(root,0,0)
+        ans = []
+        
+        for key in sorted(self.dic):
+            ans.append(self.dic[key][0])
+            
+        return ans
+
+
+# BFS  PROCESS
+
+
+def bfs(self,root):
+        
+        queue = [(root,0)]
+        dic = collections.defaultdict()
+        
+        while queue:
+            node ,line = queue.pop(0)
+            if line not in dic:
+                dic[line] = node.data
+            
+            if node.left:
+                queue.append((node.left,line-1))
+            if node.right:
+                queue.append((node.right,line+1))
+                
+        ans = []
+        #print(dic)
+        for key in sorted(dic):
+            ans.append(dic[key])
+        return ans
+Time Complexity: O(N)
+
+Space Complexity: O(N)
