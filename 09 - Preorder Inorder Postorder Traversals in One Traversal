@@ -1,0 +1,27 @@
+def preInpost(self,root):
+        
+        st = [(root,1)]
+        preorder = []
+        inorder  = []
+        postorder = []
+        
+        while st:
+            node,num = st.pop()
+            if num == 1:
+                preorder.append(node.val)
+                num += 1
+                st.append((node,num))
+                if node.left:
+                    st.append((node.left,1))
+            elif num == 2:
+                inorder.append(node.val)
+                num += 1
+                st.append((node,num))
+                if node.right:
+                    st.append((node.right,1))
+            elif num == 3:
+                postorder.append(node.val)
+                
+        print(preorder)
+        print(postorder)
+        print(inorder)
