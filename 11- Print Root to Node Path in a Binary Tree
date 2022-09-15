@@ -1,0 +1,38 @@
+# Definition for a  binary tree node
+# class TreeNode:
+#    def __init__(self, x):
+#        self.val = x
+#        self.left = None
+#        self.right = None
+
+class Solution:
+    # @param A : root node of tree
+    # @param B : integer
+    # @return a list of integers
+    def getpath(self,root,arr,B):
+        if not root:
+            return False
+        arr.append(root.val)
+        if root.val == B:
+            return True
+        if self.getpath(root.left,arr,B) or self.getpath(root.right,arr,B):
+            return True
+        arr.pop()
+        return False
+    
+    def solve(self, A, B):
+        arr = []
+        if not A:
+            return arr
+        self.getpath(A,arr,B)
+        return arr
+
+
+
+Time Complexity: O(N)
+
+Reason: We are doing a simple tree traversal.
+
+Space Complexity: O(N)
+
+Reason: In the worst case (skewed tree), space complexity can be O(N).
