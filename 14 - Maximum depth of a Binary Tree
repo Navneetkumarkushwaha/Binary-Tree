@@ -1,0 +1,40 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def BFS(self,root):
+        if not root:
+            return 0
+        q = [root]
+        level = 0
+        
+        while q:
+            level += 1
+            n = len(q)
+            for _ in range(n):
+                node = q.pop(0)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        return level
+    
+    def DFS(self,root):
+        if not root:
+            return 0
+        left = self.DFS(root.left)
+        right = self.DFS(root.right)
+        
+        return 1+max(left,right)
+            
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        return self.DFS(root)
+        return self.BFS(root)
+    
+    
+    Time Complexity: O(N) 
+
+    Space Complexity: O(1) Extra Space + O(H) Recursion Stack space, where “H”  is the height of the binary tree.
