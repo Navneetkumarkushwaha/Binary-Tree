@@ -1,0 +1,34 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def solve(self,root):
+        if not root:
+            return 0
+        
+        left = self.solve(root.left)
+        right = self.solve(root.right)
+        
+        temp = max(max(left,right)+root.val,root.val) 
+        t_ans = max(temp,left+right+root.val)
+        self.ans = max(self.ans,t_ans)
+        
+        return temp
+        
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        
+        self.ans = float('-inf')
+        self.solve(root)
+        return self.ans
+        
+        Time Complexity: O(N).
+
+Reason: We are doing a tree traversal.
+
+Space Complexity: O(N)
+
+Reason: Space is needed for the recursion stack. In the worst case (skewed tree), space complexity can be O(N).
+
